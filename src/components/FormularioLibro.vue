@@ -1,31 +1,29 @@
-<script>
-export default {
-    name: 'FormularioLibro',
-    data() {
-        return {
-            nuevoLibro: {
-                titulo: '',
-                autor: '',
-                categoria: '',
-                descripcion: '',
-                estado: ''
-            }
-        }
-    },
-    emits: ['agregar-libro'],
-    methods: {
-        guardar() {
-            this.$emit('agregar-libro', { ...this.nuevoLibro });
-            this.nuevoLibro = {
-                titulo: '',
-                autor: '',
-                categoria: '',
-                descripcion: '',
-                estado: ''
-            };
-        }
-    }
-}
+<script setup>
+import { reactive } from 'vue';
+
+// 1. Declaración de Emits
+const emit = defineEmits(['agregar-libro']);
+
+// 2. Estado Reactivo
+const nuevoLibro = reactive({
+  titulo: '',
+  autor: '',
+  categoria: '',
+  descripcion: '',
+  estado: ''
+});
+
+// 3. Método Guardar
+const guardar = () => {
+  emit('agregar-libro', { ...nuevoLibro });
+  Object.assign(nuevoLibro, {
+    titulo: '',
+    autor: '',
+    categoria: '',
+    descripcion: '',
+    estado: ''
+  });
+};
 </script>
 
 <template>

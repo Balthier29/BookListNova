@@ -1,49 +1,49 @@
-<script>
+<script setup>
+import { ref, computed } from 'vue';
 import FormularioLibro from '@/components/FormularioLibro.vue';
 import LibroItem from '@/components/LibroItem.vue';
 import ResumenEstado from '@/components/ResumenEstado.vue';
 
-export default {
-    name: 'listaLibros',
-    data() {
-        return {
-            filtroAutor: '',
-            filtroCategoria: '',
-            filtroEstado: '',
-            mostrarFormulario: false,
-            mostrarFiltros: false
-        }
-    },
-    components: { FormularioLibro, LibroItem, ResumenEstado },
-    props: {
-        libros: {
-            type: Array,
-            required: true
-        }
-    },
-    emits: ['agregar-libro', 'eliminar-libro', 'editar-libro'],
-    methods: {
-        agregarLibro(nuevoLibro) {
-            this.$emit('agregar-libro', nuevoLibro);
-        },
-        eliminarLibro(id) {
-            this.$emit('eliminar-libro', id);
-        },
-        editarLibro(payload) {
-            this.$emit('editar-libro', payload)
-        }
-    },
-    computed: {
-        librosFiltrados() {
-            return this.libros.filter(libro => {
-                const coincideAutor = libro.autor.toLowerCase().includes(this.filtroAutor.toLowerCase());
-                const coincideCategoria = this.filtroCategoria === '' || libro.categoria === this.filtroCategoria;
-                const coincideEstado = this.filtroEstado === '' || libro.estado === this.filtroEstado;
-                return coincideAutor && coincideCategoria && coincideEstado
-            });
-        }
-    }
-}
+// 1. Props
+const props = defineProps({
+  libros: {
+    type: Array,
+    required: true
+  }
+});
+
+// 2. Emits
+const emit = defineEmits(['agregar-libro', 'eliminar-libro', 'editar-libro']);
+
+// 3. Estado Reactivo (data)
+const filtroAutor = ref('');
+const filtroCategoria = ref('');
+const filtroEstado = ref('');
+const mostrarFormulario = ref(false);
+const mostrarFiltros = ref(false);
+
+// 4. Métodos
+const agregarLibro = (nuevoLibro) => {
+  emit('agregar-libro', nuevoLibro);
+};
+
+const eliminarLibro = (id) => {
+  emit('eliminar-libro', id);
+};
+
+const editarLibro = (payload) => {
+  emit('editar-libro', payload);
+};
+
+// 5. Propiedades Computadas
+const librosFiltrados = computed(() => {
+  return props.libros.filter(libro => {
+    const coincideAutor = libro.autor.toLowerCase().includes(filtroAutor.value.toLowerCase());
+    const coincideCategoria = filtroCategoria.value === '' || libro.categoria === filtroCategoria.value;
+    const coincideEstado = filtroEstado.value === '' || libro.estado === filtroEstado.value;
+    return coincideAutor && coincideCategoria && coincideEstado;
+  });
+});
 </script>
 
 <template>
@@ -56,10 +56,13 @@ export default {
         <ResumenEstado :libros="libros" />
 
         <div class="acciones-catalogo">
-            <button class="btn-toggle" @click="mostrarFormulario = !mostrarFormulario">{{ mostrarFormulario ? 'X cerrar formulario' : ' + Agregar Libro' }}</button>
-            <button class="btn-toggle secundario" @click="mostrarFiltros = !mostrarFiltros"> {{ mostrarFiltros ? 'X Cerrar Filtros' : '🔍 Filtros' }}</button>
+            <button class="btn-toggle" @click="mostrarFormulario = !mostrarFormulario">
+                {{ mostrarFormulario ? 'X cerrar formulario' : ' + Agregar Libro' }}
+            </button>
+            <button class="btn-toggle secundario" @click="mostrarFiltros = !mostrarFiltros">
+                {{ mostrarFiltros ? 'X Cerrar Filtros' : '🔍 Filtros' }}
+            </button>
         </div>
-
 
         <div class="fila-superior" v-if="mostrarFormulario || mostrarFiltros"
             :class="{ 'dos-columnas': mostrarFormulario && mostrarFiltros }">
@@ -67,7 +70,6 @@ export default {
             <div class="panel-formulario" v-if="mostrarFormulario">
                 <FormularioLibro @agregar-libro="agregarLibro" />
             </div>
-
 
             <div class="panel-filtros" v-if="mostrarFiltros">
                 <h3>Filtros</h3>
@@ -98,7 +100,6 @@ export default {
                 </div>
             </div>
         </div>
-
 
         <hr>
 

@@ -1,38 +1,32 @@
-<script>
+<script setup>
+import { computed } from 'vue';
+import libroSinImagen from '@/assets/img/libro-de-lectura.webp';
 
-import libroSinImagen from '@/assets/img/libro-de-lectura.webp'
-
-export default {
-    name: 'detalleLibro',
-    props: {
-        id: {
-            type: [String, Number],
-            required: true
-        },
-        libros: {
-            type: Array,
-            required: true,
-            default: () => []
-        }
+// 1. Declaración de Props
+const props = defineProps({
+    id: {
+        type: [String, Number],
+        required: true
     },
-    data() {
-        return {
-            libroSinImagen
-        }
-    },
-    computed: {
-        libro() {
-            const posicion = Number(this.id) - 1;
-            return this.libros[posicion] || null;
-        },
-        colorEstado() {
-            if (!this.libro) return '';
-            if (this.libro.estado === 'Publicado') return 'badge-exito';
-            if (this.libro.estado === 'En edición') return 'badge-advertencia';
-            return 'badge-info';
-        }
+    libros: {
+        type: Array,
+        required: true,
+        default: () => []
     }
-}
+});
+
+// 2. Propiedades Computadas
+const libro = computed(() => {
+    const posicion = Number(props.id) - 1;
+    return props.libros[posicion] || null;
+});
+
+const colorEstado = computed(() => {
+    if (!libro.value) return '';
+    if (libro.value.estado === 'Publicado') return 'badge-exito';
+    if (libro.value.estado === 'En edición') return 'badge-advertencia';
+    return 'badge-info';
+});
 </script>
 
 <template>

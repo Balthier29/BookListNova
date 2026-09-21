@@ -1,57 +1,47 @@
-<script>
-
+<script setup>
+import { computed } from 'vue';
 import TarjetaProceso from '@/components/TarjetaProceso.vue';
 import iconoCatalogo from '@/assets/img/iconoCatalogo.gif';
 import iconoEdicion from '@/assets/img/iconoEdicion.gif';
 import iconoPublicacion from '@/assets/img/iconoPublicacion.gif';
 
-
-export default {
-
-  name: 'inicioHome',
-  components: { TarjetaProceso },
-  data() {
-    return {
-      iconoCatalogo,
-      iconoEdicion,
-      iconoPublicacion
-    }
+// 1. Declaración de Props
+const props = defineProps({
+  libros: {
+    type: Array,
+    required: true
   },
-  props: {
-    libros: {
-      type: Array,
-      required: true
-    },
-    usuarioActivo: {
-      type: Object,
-      default: null
-    }
-  },
-  computed: {
-    totalLibros() {
-      return this.libros.length;
-    },
-    publicados() {
-      return this.libros.filter(l => l.estado === 'Publicado').length;
-    },
-    enDiseno() {
-      return this.libros.filter(l => l.estado === 'En diseño').length;
-    },
-    enEdicion() {
-      return this.libros.filter(l => l.estado === 'En edición').length;
-    },
-    ultimosLibros() {
-      return this.libros.slice(-3).reverse();
-    }
-  },
-  methods: {
-    colorEstado(estado) {
-      if (estado === 'Publicado') return 'badge-exito';
-      if (estado === 'En edición') return 'badge-advertencia';
-      return 'badge-info';
-    }
+  usuarioActivo: {
+    type: Object,
+    default: null
   }
-}
+});
+
+// 2. Propiedades Computadas
+const totalLibros = computed(() => props.libros.length);
+
+const publicados = computed(() =>
+  props.libros.filter(l => l.estado === 'Publicado').length
+);
+
+const enDiseno = computed(() =>
+  props.libros.filter(l => l.estado === 'En diseño').length
+);
+
+const enEdicion = computed(() =>
+  props.libros.filter(l => l.estado === 'En edición').length
+);
+
+const ultimosLibros = computed(() =>
+  props.libros.slice(-3).reverse()
+);
+
+// 3. Funciones (Métodos)
+const colorEstado = (estado) => {
+  if (estado === 'Publicado') return 'badge-exito';
+  if (estado === 'En edición') return 'badge-advertencia';
+  return 'badge-info';
+};
 </script>
 
 <template>
@@ -111,26 +101,15 @@ export default {
     </div>
 
     <div class="grid-procesos">
-      <tarjeta-proceso
-      :icono="iconoCatalogo"
-      titulo="Gestiona el catálogo"
-      descripcion="Registra y organiza todos los títulos publicados por la editorial."
-      />
-      <tarjeta-proceso
-      :icono="iconoEdicion"
-      titulo="Sigue el proceso editorial"
-      descripcion="Controla el estado de cada libro: en diseño, en edición o publicado."
-      />
-      <tarjeta-proceso
-      :icono="iconoPublicacion"
-      titulo="Publica con confianza"
-      descripcion="Publicaremos tu libro a través de nuestros canales de venta. Tu libro estará a nivel mundial en formato papel y digital."
-      />
+      <tarjeta-proceso :icono="iconoCatalogo" titulo="Gestiona el catálogo"
+        descripcion="Registra y organiza todos los títulos publicados por la editorial." />
+      <tarjeta-proceso :icono="iconoEdicion" titulo="Sigue el proceso editorial"
+        descripcion="Controla el estado de cada libro: en diseño, en edición o publicado." />
+      <tarjeta-proceso :icono="iconoPublicacion" titulo="Publica con confianza"
+        descripcion="Publicaremos tu libro a través de nuestros canales de venta. Tu libro estará a nivel mundial en formato papel y digital." />
     </div>
   </div>
-
 </template>
-
 
 <style scoped>
 .panel {
@@ -315,9 +294,9 @@ export default {
 }
 
 .grid-procesos {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-    margin-top: 32px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 32px;
 }
 </style>
