@@ -1,10 +1,8 @@
 <script setup>
 import { reactive } from 'vue';
 
-// 1. Declaración de Emits
 const emit = defineEmits(['agregar-libro']);
 
-// 2. Estado Reactivo
 const nuevoLibro = reactive({
   titulo: '',
   autor: '',
@@ -13,7 +11,6 @@ const nuevoLibro = reactive({
   estado: ''
 });
 
-// 3. Método Guardar
 const guardar = () => {
   emit('agregar-libro', { ...nuevoLibro });
   Object.assign(nuevoLibro, {

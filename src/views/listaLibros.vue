@@ -4,7 +4,6 @@ import FormularioLibro from '@/components/FormularioLibro.vue';
 import LibroItem from '@/components/LibroItem.vue';
 import ResumenEstado from '@/components/ResumenEstado.vue';
 
-// 1. Props
 const props = defineProps({
   libros: {
     type: Array,
@@ -12,17 +11,15 @@ const props = defineProps({
   }
 });
 
-// 2. Emits
 const emit = defineEmits(['agregar-libro', 'eliminar-libro', 'editar-libro']);
 
-// 3. Estado Reactivo (data)
 const filtroAutor = ref('');
 const filtroCategoria = ref('');
 const filtroEstado = ref('');
 const mostrarFormulario = ref(false);
 const mostrarFiltros = ref(false);
 
-// 4. Métodos
+
 const agregarLibro = (nuevoLibro) => {
   emit('agregar-libro', nuevoLibro);
 };
@@ -35,7 +32,7 @@ const editarLibro = (payload) => {
   emit('editar-libro', payload);
 };
 
-// 5. Propiedades Computadas
+
 const librosFiltrados = computed(() => {
   return props.libros.filter(libro => {
     const coincideAutor = libro.autor.toLowerCase().includes(filtroAutor.value.toLowerCase());

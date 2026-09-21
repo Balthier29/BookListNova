@@ -2,7 +2,6 @@
 import { computed } from 'vue';
 import libroSinImagen from '@/assets/img/libro-de-lectura.webp';
 
-// 1. Declaración de Props
 const props = defineProps({
     id: {
         type: [String, Number],
@@ -15,7 +14,6 @@ const props = defineProps({
     }
 });
 
-// 2. Propiedades Computadas
 const libro = computed(() => {
     const posicion = Number(props.id) - 1;
     return props.libros[posicion] || null;

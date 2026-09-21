@@ -5,7 +5,6 @@ import iconoCatalogo from '@/assets/img/iconoCatalogo.gif';
 import iconoEdicion from '@/assets/img/iconoEdicion.gif';
 import iconoPublicacion from '@/assets/img/iconoPublicacion.gif';
 
-// 1. Declaración de Props
 const props = defineProps({
   libros: {
     type: Array,
@@ -17,7 +16,6 @@ const props = defineProps({
   }
 });
 
-// 2. Propiedades Computadas
 const totalLibros = computed(() => props.libros.length);
 
 const publicados = computed(() =>
@@ -36,7 +34,6 @@ const ultimosLibros = computed(() =>
   props.libros.slice(-3).reverse()
 );
 
-// 3. Funciones (Métodos)
 const colorEstado = (estado) => {
   if (estado === 'Publicado') return 'badge-exito';
   if (estado === 'En edición') return 'badge-advertencia';

@@ -1,7 +1,6 @@
 <script setup>
 import { computed } from 'vue';
 
-// 1. Declaración de Props
 const props = defineProps({
   libros: {
     type: Array,
@@ -9,12 +8,10 @@ const props = defineProps({
   }
 });
 
-// 2. Funciones (Métodos)
 const contarEstado = (estado) => {
   return props.libros.filter(libro => libro.estado === estado).length;
 };
 
-// 3. Propiedades Computadas
 const totalPendientes = computed(() => {
   return contarEstado('En diseño') + contarEstado('En edición');
 });

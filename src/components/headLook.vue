@@ -1,7 +1,6 @@
 <script setup>
 import libroLogin from '@/assets/img/libro-login.gif';
 
-// 1. Declaración de Props
 defineProps({
   usuarioActivo: {
     type: Object,
@@ -9,10 +8,8 @@ defineProps({
   }
 });
 
-// 2. Declaración de Emits
 const emit = defineEmits(['logout']);
 
-// 3. Función / Método
 const cerrarSesion = () => {
   emit('logout');
 };

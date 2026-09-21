@@ -1,5 +1,5 @@
 <script setup>
-// En <script setup>, declareProps se usa para definir las props sin necesidad de exportar nada
+
 defineProps({
   icono: {
     type: String,

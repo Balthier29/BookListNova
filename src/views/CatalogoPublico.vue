@@ -2,7 +2,6 @@
 import { ref, computed } from 'vue';
 import libroSinImagen from '@/assets/img/libro-de-lectura.webp';
 
-// 1. Declaración de Props
 const props = defineProps({
   libros: {
     type: Array,
@@ -10,16 +9,12 @@ const props = defineProps({
   }
 });
 
-// 2. Estado Reactivo
 const indiceActual = ref(0);
 
-// 3. Propiedad Computada
 const libroActual = computed(() => props.libros[indiceActual.value]);
 
-// 4. Métodos / Funciones
 const anterior = () => {
-  // Se corrige "this.indiceActual.length" del código original por "props.libros.length"
-  indiceActual.value = indiceActual.value === 0 
+    indiceActual.value = indiceActual.value === 0 
     ? props.libros.length - 1 
     : indiceActual.value - 1;
 };

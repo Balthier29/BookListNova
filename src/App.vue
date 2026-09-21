@@ -11,10 +11,9 @@ import elPrincipito from '@/assets/img/elPrincipito.webp';
 import orgullo from '@/assets/img/orgulloYPrejuicio.webp';
 import hobbit from '@/assets/img/ElHobbit.webp';
 
-// Instancia del router para redirecciones
 const router = useRouter();
 
-// Estado reactivo (data)
+
 const libros = ref([
   {
     id: 1,

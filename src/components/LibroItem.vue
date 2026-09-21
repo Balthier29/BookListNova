@@ -1,7 +1,6 @@
 <script setup>
 import { ref, reactive, computed } from 'vue';
 
-// 1. Declaración de Props
 const props = defineProps({
   libro: {
     type: Object,
@@ -13,14 +12,10 @@ const props = defineProps({
   }
 });
 
-// 2. Declaración de Emits
 const emit = defineEmits(['eliminar', 'editar']);
 
-// 3. Estado Reactivo (reemplaza data)
 const editando = ref(false);
 const borrador = reactive({ ...props.libro });
-
-// 4. Propiedades Computadas
 
 const colorEstado = computed(() => {
   if (props.libro.estado === 'Publicado') return 'badge-exito';
@@ -28,7 +23,6 @@ const colorEstado = computed(() => {
   return 'badge-info';
 });
 
-// 5. Métodos
 const activarEdicion = () => {
   Object.assign(borrador, props.libro);
   editando.value = true;
