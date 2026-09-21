@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 📚 BookList — Gestor de Libros Interactivo con Vue.js
 
 Proyecto realizado para resolver la problematica que tenia nuestro cliente Editorial Nova, donde generamos una SPA de forma modular y reactiva, cumpliendo con altos estandares de la industria actual.
@@ -89,3 +90,7 @@ El proyecto quedará disponible en http://localhost:8080/ (o el puerto que indiq
 Davis Vicencio // alias Balthier29.
 
 
+=======
+# BookListNova
+panel de gestión para editorial Nova
+>>>>>>> 3001d49276b3b345179dc3d7cb88ec06a2d15b11
